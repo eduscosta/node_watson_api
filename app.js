@@ -12,7 +12,7 @@ var conversation = new WcsV1({
 // router for api
 let router = express.Router(); // get an instance of the express Router - everything is working (accessed at GET http://localhost:8080/api)
 
-router.get('/message', function(req, res) {
+router.get('/conversation', function(req, res) {
 	let inputText = {};
 	let workspace = process.env.WORKSPACE_ID;
 		if (!workspace) {
@@ -39,7 +39,9 @@ router.get('/message', function(req, res) {
 		if(err){
 			return res.status(err.code || 500).json(err);
 		}
-		response = data.output.text;
+		response = { 
+			text: data.output.text[0]
+		};
 		return res.json(response);
 	})
 
